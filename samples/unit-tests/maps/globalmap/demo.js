@@ -1,5 +1,3 @@
-
-
 QUnit.test('Set basemap on chart object', function (assert) {
     var chart = new Highcharts.Map('container', {
         chart: {
@@ -29,9 +27,11 @@ QUnit.test('Set basemap on chart object', function (assert) {
         chart: {
             map: 'invalid-map'
         },
-        series: [{
-            mapData: Highcharts.maps['countries/ad/ad-all']
-        }]
+        series: [
+            {
+                mapData: Highcharts.maps['countries/ad/ad-all']
+            }
+        ]
     });
     assert.strictEqual(
         chart.series[0].mapData.length,

@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
 
     chart: {
@@ -7,6 +6,8 @@ Highcharts.chart('container', {
     },
 
     legend: {
+        // itemWidth: null // => default
+        // alignColumns: true  // => default
     },
 
     series: [{

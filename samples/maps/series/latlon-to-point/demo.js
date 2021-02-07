@@ -1,7 +1,5 @@
-
-
 // Initiate the chart
-var chart = Highcharts.Map({
+const chart = Highcharts.Map({
     chart: {
         renderTo: 'container'
     },
@@ -50,8 +48,8 @@ var chart = Highcharts.Map({
     }]
 });
 
-$('#addCircle').click(function () {
-    var pos = chart.fromLatLonToPoint({ lat: 51.507222, lon: -0.1275 });
+document.getElementById('addCircle').onclick = () => {
+    const pos = chart.fromLatLonToPoint({ lat: 51.507222, lon: -0.1275 });
     chart.renderer.circle(chart.xAxis[0].toPixels(pos.x), chart.yAxis[0].toPixels(pos.y), 28).attr({
         zIndex: 100,
         fill: '#FCFFC5',
@@ -59,4 +57,4 @@ $('#addCircle').click(function () {
         stroke: '#606060',
         'stroke-width': 1
     }).add();
-});
+};

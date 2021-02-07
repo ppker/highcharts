@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
     chart: {
         type: 'scatter',
@@ -21,6 +20,11 @@ Highcharts.chart('container', {
     },
     subtitle: {
         text: 'Click the plot area to add a point. Click a point to remove it.'
+    },
+    accessibility: {
+        announceNewData: {
+            enabled: true
+        }
     },
     xAxis: {
         gridLineWidth: 1,
@@ -52,7 +56,7 @@ Highcharts.chart('container', {
             lineWidth: 1,
             point: {
                 events: {
-                    'click': function () {
+                    click: function () {
                         if (this.series.data.length > 1) {
                             this.remove();
                         }

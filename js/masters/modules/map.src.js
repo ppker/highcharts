@@ -1,21 +1,24 @@
 /**
- * @license @product.name@ JS v@product.version@ (@product.date@)
- * Highmaps as a plugin for Highcharts 4.1.x or Highstock 2.1.x (x being the patch version of this file)
+ * @license Highmaps JS v@product.version@ (@product.date@)
+ * @module highcharts/modules/map
+ * @requires highcharts
  *
- * (c) 2011-2017 Torstein Honsi
+ * Highmaps as a plugin for Highcharts or Highstock.
+ *
+ * (c) 2011-2021 Torstein Honsi
  *
  * License: www.highcharts.com/license
  */
 'use strict';
-import '../../parts-map/MapAxis.js';
-import '../../parts-map/ColorAxis.js';
-import '../../parts-map/ColorSeriesMixin.js';
-import '../../parts-map/MapNavigation.js';
-import '../../parts-map/MapPointer.js';
-import '../../parts-map/MapSeries.js';
-import '../../parts-map/MapLineSeries.js';
-import '../../parts-map/MapPointSeries.js';
-import '../../parts-map/MapBubbleSeries.js';
-import '../../parts-map/HeatmapSeries.js';
-import '../../parts-map/GeoJSON.js';
-import '../../parts-map/Map.js';
+import '../../Core/Axis/MapAxis.js';
+import '../../Core/Axis/ColorAxis.js';
+import '../../Mixins/ColorMapSeries.js';
+import '../../Maps/MapNavigation.js';
+import '../../Maps/MapPointer.js';
+import '../../Series/Map/MapSeries.js';
+import '../../Series/MapLine/MapLineSeries.js';
+import '../../Series/MapPoint/MapPointSeries.js';
+import '../../Series/MapBubble/MapBubbleSeries.js';
+import '../../Series/Heatmap/HeatmapSeries.js';
+import '../../Extensions/GeoJSON.js';
+import '../../Maps/Map.js';

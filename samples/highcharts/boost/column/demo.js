@@ -1,5 +1,3 @@
-
-
 function getData(n) {
     var arr = [],
         i,
@@ -36,15 +34,17 @@ Highcharts.chart('container', {
 
     chart: {
         type: 'column',
-        zoomType: 'x'
+        zoomType: 'x',
+        panning: true,
+        panKey: 'shift'
     },
 
     title: {
-        text: 'Trimmed Highcharts drawing ' + data.length + ' points'
+        text: 'Highcharts drawing ' + data.length + ' points'
     },
 
     subtitle: {
-        text: 'Using the experimental Highcharts Boost module'
+        text: 'Using the Boost module'
     },
 
     tooltip: {

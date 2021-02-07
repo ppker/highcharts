@@ -1,5 +1,4 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv.json&callback=?', function (data) {
+Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-ohlcv.json', function (data) {
 
     // split the data set into ohlc and volume
     var ohlc = [],
@@ -52,7 +51,10 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-ohlcv
                 text: 'OHLC'
             },
             height: '60%',
-            lineWidth: 2
+            lineWidth: 2,
+            resize: {
+                enabled: true
+            }
         }, {
             labels: {
                 align: 'right',

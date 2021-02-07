@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
 
     chart: {
@@ -17,6 +16,12 @@ Highcharts.chart('container', {
 
     subtitle: {
         text: 'Source: <a href="http://www.euromonitor.com/">Euromonitor</a> and <a href="https://data.oecd.org/">OECD</a>'
+    },
+
+    accessibility: {
+        point: {
+            valueDescriptionFormat: '{index}. {point.name}, fat: {point.x}g, sugar: {point.y}g, obesity: {point.z}%.'
+        }
     },
 
     xAxis: {
@@ -41,7 +46,10 @@ Highcharts.chart('container', {
                 text: 'Safe fat intake 65g/day'
             },
             zIndex: 3
-        }]
+        }],
+        accessibility: {
+            rangeDescription: 'Range: 60 to 100 grams.'
+        }
     },
 
     yAxis: {
@@ -68,7 +76,10 @@ Highcharts.chart('container', {
                 x: -10
             },
             zIndex: 3
-        }]
+        }],
+        accessibility: {
+            rangeDescription: 'Range: 0 to 160 grams.'
+        }
     },
 
     tooltip: {

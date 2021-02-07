@@ -1,11 +1,3 @@
-
-
-Highcharts.setOptions({
-    global: {
-        useUTC: false
-    }
-});
-
 // Create the chart
 Highcharts.stockChart('container', {
     chart: {
@@ -21,6 +13,10 @@ Highcharts.stockChart('container', {
                 }, 1000);
             }
         }
+    },
+
+    time: {
+        useUTC: false
     },
 
     rangeSelector: {
@@ -66,4 +62,3 @@ Highcharts.stockChart('container', {
         }())
     }]
 });
-

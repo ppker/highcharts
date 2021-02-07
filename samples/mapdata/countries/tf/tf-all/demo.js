@@ -4,8 +4,7 @@
 var data = [
     ['fr-3642', 0],
     ['fr-7327', 1],
-    ['fr-7328', 2],
-    ['undefined', 3]
+    ['fr-7328', 2]
 ];
 
 // Create the chart
@@ -46,11 +45,12 @@ Highcharts.mapChart('container', {
             format: '{point.name}'
         }
     }, {
-            name: 'Separators',
-            type: 'mapline',
-            data: Highcharts.geojson(Highcharts.maps['countries/tf/tf-all'], 'mapline'),
-            color: 'silver',
-            showInLegend: false,
-            enableMouseTracking: false
-        }]
+        name: 'Separators',
+        type: 'mapline',
+        data: Highcharts.geojson(Highcharts.maps['countries/tf/tf-all'], 'mapline'),
+        color: 'silver',
+        nullColor: 'silver',
+        showInLegend: false,
+        enableMouseTracking: false
+    }]
 });

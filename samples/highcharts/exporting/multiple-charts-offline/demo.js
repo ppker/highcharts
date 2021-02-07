@@ -1,5 +1,3 @@
-
-
 /**
  * Create a global getSVG method that takes an array of charts as an argument. The SVG is returned as an argument in the callback.
  */
@@ -44,7 +42,7 @@ Highcharts.getSVG = function (charts, options, callback) {
 Highcharts.exportCharts = function (charts, options) {
     options = Highcharts.merge(Highcharts.getOptions().exporting, options);
 
-		// Get SVG asynchronously and then download the resulting SVG
+    // Get SVG asynchronously and then download the resulting SVG
     Highcharts.getSVG(charts, options, function (svg) {
         Highcharts.downloadSVGLocal(svg, options, function () {
             console.log("Failed to export on client side");
@@ -117,11 +115,11 @@ var chart2 = Highcharts.chart('container2', {
 
 });
 
-$('#export-png').click(function () {
+document.getElementById('export-png').addEventListener('click', () => {
     Highcharts.exportCharts([chart1, chart2]);
 });
 
-$('#export-pdf').click(function () {
+document.getElementById('export-pdf').addEventListener('click', () => {
     Highcharts.exportCharts([chart1, chart2], {
         type: 'application/pdf'
     });

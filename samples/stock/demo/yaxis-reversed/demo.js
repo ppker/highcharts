@@ -1,5 +1,4 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
 
     // Create the chart
     Highcharts.stockChart('container', {
@@ -34,7 +33,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.jso
                 },
                 stops: [
                     [0, Highcharts.getOptions().colors[0]],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
                 ]
             },
             tooltip: {

@@ -1,4 +1,3 @@
-
 function getData(n) {
     var arr = [],
         i;
@@ -50,18 +49,18 @@ chart =  Highcharts.stockChart('container', {
     },
 
     title: {
-        text: 'Trimmed Highcharts drawing ' + (n * s) + ' points across ' + s + ' series'
+        text: 'Highcharts drawing ' + (n * s) + ' points across ' + s + ' series'
     },
 
     navigator: {
         xAxis: {
             ordinal: false//,
-           // min: n / 2
+            // min: n / 2
             //max: 10
         },
         yAxis: {
-           // min: 0,
-           // max: 10
+            // min: 0,
+            // max: 10
         },
         series: {
             color: null
@@ -73,8 +72,8 @@ chart =  Highcharts.stockChart('container', {
     },
 
     xAxis: {
-       // min: n / 2,
-       // max: 120,
+        // min: n / 2,
+        // max: 120,
         ordinal: false
     },
 
@@ -84,7 +83,7 @@ chart =  Highcharts.stockChart('container', {
     },
 
     subtitle: {
-        text: 'Using the experimental Highcharts Boost module'
+        text: 'Using the Boost module'
     },
 
     tooltip: {

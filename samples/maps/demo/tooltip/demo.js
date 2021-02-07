@@ -1,14 +1,16 @@
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
-
-    // Add lower case codes to the data set for inclusion in the tooltip.pointFormat
-    $.each(data, function () {
-        this.flag = this.code.replace('UK', 'GB').toLowerCase();
+    // Prevent logarithmic errors in color calulcation
+    data.forEach(function (p) {
+        p.value = (p.value < 1 ? 1 : p.value);
     });
 
     // Initiate the chart
     Highcharts.mapChart('container', {
+
+        chart: {
+            map: 'custom/world'
+        },
 
         title: {
             text: 'Fixed tooltip with HTML'
@@ -18,7 +20,13 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
             title: {
                 text: 'Population density per km²',
                 style: {
-                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+                    color: ( // theme
+                        Highcharts.defaultOptions &&
+                        Highcharts.defaultOptions.legend &&
+                        Highcharts.defaultOptions.legend.title &&
+                        Highcharts.defaultOptions.legend.title.style &&
+                        Highcharts.defaultOptions.legend.title.style.color
+                    ) || 'black'
                 }
             }
         },
@@ -36,7 +44,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
             shadow: false,
             useHTML: true,
             padding: 0,
-            pointFormat: '<span class="f32"><span class="flag {point.flag}">' +
+            pointFormat: '<span class="f32"><span class="flag {point.properties.hc-key}">' +
                 '</span></span> {point.name}<br>' +
                 '<span style="font-size:30px">{point.value}/km²</span>',
             positioner: function () {
@@ -52,8 +60,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
 
         series: [{
             data: data,
-            mapData: Highcharts.maps['custom/world'],
-            joinBy: ['iso-a2', 'code'],
+            joinBy: ['iso-a3', 'code3'],
             name: 'Population density',
             states: {
                 hover: {

@@ -1,5 +1,3 @@
-
-
 Highcharts.chart('container', {
     title: {
         text: 'Height vs Weight'
@@ -32,9 +30,12 @@ Highcharts.chart('container', {
         type: 'polygon',
         data: [[153, 42], [149, 46], [149, 55], [152, 60], [159, 70], [170, 77], [180, 70],
             [180, 60], [173, 52], [166, 45]],
-        color: Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.5).get(),
-        enableMouseTracking: false
-
+        color: Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0.5).get(),
+        enableMouseTracking: false,
+        accessibility: {
+            exposeAsGroupOnly: true,
+            description: 'Target ranges in an upwards trending diagonal from 149 to 180 on the x axis, and 42 to 77 on the y axis.'
+        }
     }, {
         name: 'Observations',
         type: 'scatter',
@@ -96,6 +97,19 @@ Highcharts.chart('container', {
     tooltip: {
         headerFormat: '<b>{series.name}</b><br>',
         pointFormat: '{point.x} cm, {point.y} kg'
+    },
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    align: 'center',
+                    layout: 'horizontal',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
     }
 });
-

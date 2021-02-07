@@ -1,7 +1,7 @@
-
 Highcharts.chart('container', {
 
     chart: {
+        styledMode: true,
         type: 'column'
     },
 
@@ -21,6 +21,12 @@ Highcharts.chart('container', {
             text: 'Secondary axis'
         }
     }],
+
+    plotOptions: {
+        column: {
+            borderRadius: 5
+        }
+    },
 
     series: [{
         data: [1, 3, 2, 4]

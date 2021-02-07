@@ -5,9 +5,11 @@ QUnit.test('Formatter returns undefined', function (assert) {
                 return undefined;
             }
         },
-        series: [{
-            data: [1, 2, 3]
-        }]
+        series: [
+            {
+                data: [1, 2, 3]
+            }
+        ]
     });
 
     chart.tooltip.refresh(chart.series[0].points[0]);
@@ -23,12 +25,14 @@ QUnit.test('Return false from tooltip.formatter (#5915)', function (assert) {
     var chart = Highcharts.chart('container', {
             tooltip: {
                 formatter: function () {
-                    return this.y > 2 ? "Display" : false;
+                    return this.y > 2 ? 'Display' : false;
                 }
             },
-            series: [{
-                data: [1, 3]
-            }]
+            series: [
+                {
+                    data: [1, 3]
+                }
+            ]
         }),
         p1 = chart.series[0].points[0],
         p2 = chart.series[0].points[1],
@@ -36,16 +40,15 @@ QUnit.test('Return false from tooltip.formatter (#5915)', function (assert) {
 
     tooltip.refresh(p1);
     assert.strictEqual(
-        document.querySelector('.highcharts-tooltip'),
+        chart.container.querySelector('.highcharts-tooltip'),
         null,
         'No tooltip yet'
     );
 
     tooltip.refresh(p2);
     assert.strictEqual(
-        document.querySelector('.highcharts-tooltip').nodeName,
+        chart.container.querySelector('.highcharts-tooltip').nodeName,
         'g',
         'Tooltip added'
     );
-
 });

@@ -1,71 +1,64 @@
-
-
 // Prepare demo data
-var data = [
+const data = [
     {
         "hc-key": "au-nt",
-        "value": 0
+        value: 0
     },
     {
         "hc-key": "au-wa",
-        "value": 1
+        value: 1
     },
     {
         "hc-key": "au-ct",
-        "value": 2
+        value: 2
     },
     {
         "hc-key": "au-sa",
-        "value": 3
+        value: 3
     },
     {
         "hc-key": "au-ql",
-        "value": 4
+        value: 4
     },
     {
         "hc-key": "au-2557",
-        "value": 5
+        value: 5
     },
     {
         "hc-key": "au-ts",
-        "value": 6
+        value: 6
     },
     {
         "hc-key": "au-jb",
-        "value": 7
+        value: 7
     },
     {
         "hc-key": "au-ns",
-        "value": 8
+        value: 8
     },
     {
         "hc-key": "au-vi",
-        "value": 9
+        value: 9
     }
 ];
 
 // Initiate the chart
-$('#map-container').highcharts('Map', {
-
+Highcharts.mapChart('map-container', {
     title: {
         text: 'Highmaps basic demo'
     },
-
     subtitle: {
         text: 'Source map: <a href="https://code.highcharts.com/mapdata/countries/au/au-all.js">Australia</a>'
     },
-
     mapNavigation: {
         enabled: true,
         buttonOptions: {
             verticalAlign: 'bottom'
         }
     },
-
     colorAxis: {
         min: 0
     },
-
     series: [{
         data: data,
         mapData: Highcharts.maps['countries/au/au-all'],
@@ -83,6 +76,7 @@ $('#map-container').highcharts('Map', {
     }, {
         // Specify the points here
         type: 'mappoint',
+        colorAxis: false,
         name: 'Points',
         showInLegend: false,
         data: [{
@@ -101,6 +95,7 @@ $('#map-container').highcharts('Map', {
     }, {
         // Specify the lines here. The design of the arrowheads is defined in SVG (see HTML). Which line gets which marker is set with CSS.
         type: 'mapline',
+        colorAxis: false,
         name: 'Lines',
         color: 'black',
         data: [{
@@ -116,12 +111,10 @@ $('#map-container').highcharts('Map', {
 });
 
 // Add line chart
-$('#line-container').highcharts({
-
+Highcharts.chart('line-container', {
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
-
     series: [{
         id: 'Series1',
         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
@@ -129,7 +122,6 @@ $('#line-container').highcharts({
             enabled: false
         }
     }]
-
-}, function (chart) {
+}, chart => {
     chart.get('Series1').graph.addClass('highcharts-arrows');
 });

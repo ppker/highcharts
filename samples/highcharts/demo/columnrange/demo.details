@@ -1,6 +1,10 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Column range
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Column and bar charts
 ...

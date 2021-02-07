@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
 
     chart: {
@@ -6,7 +5,7 @@ Highcharts.chart('container', {
     },
 
     title: {
-        text: 'Total fruit consumtion, grouped by gender'
+        text: 'Total fruit consumption, grouped by gender'
     },
 
     xAxis: {

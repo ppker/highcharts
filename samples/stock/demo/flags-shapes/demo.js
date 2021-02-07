@@ -1,5 +1,4 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json', function (data) {
 
     var year = new Date(data[data.length - 1][0]).getFullYear(); // Get year of last data point
 
@@ -8,7 +7,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
 
 
         rangeSelector: {
-            selected: 1
+            selected: 4
         },
 
         title: {

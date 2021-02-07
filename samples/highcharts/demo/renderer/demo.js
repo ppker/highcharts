@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
     chart: {
         backgroundColor: 'white',
@@ -10,7 +9,6 @@ Highcharts.chart('container', {
                     colors = Highcharts.getOptions().colors,
                     rightArrow = ['M', 0, 0, 'L', 100, 0, 'L', 95, 5, 'M', 100, 0, 'L', 95, -5],
                     leftArrow = ['M', 100, 0, 'L', 0, 0, 'L', 5, 5, 'M', 0, 0, 'L', 5, -5];
-
 
 
                 // Separator, client from service
@@ -119,8 +117,16 @@ Highcharts.chart('container', {
                     .add();
 
                 // Arrow from Batik to SaaS client
-                ren.path(['M', 235, 185, 'L', 235, 155, 'C', 235, 130, 235, 130, 215, 130,
-                          'L', 95, 130, 'L', 100, 125, 'M', 95, 130, 'L', 100, 135])
+                ren
+                    .path([
+                        'M', 235, 185,
+                        'L', 235, 155,
+                        'C', 235, 130, 235, 130, 215, 130,
+                        'L', 95, 130,
+                        'L', 100, 125,
+                        'M', 95, 130,
+                        'L', 100, 135
+                    ])
                     .attr({
                         'stroke-width': 2,
                         stroke: colors[3]
@@ -149,7 +155,6 @@ Highcharts.chart('container', {
                     })
                     .add()
                     .shadow(true);
-
 
 
                 // Arrow from Browser to Batik
@@ -241,6 +246,9 @@ Highcharts.chart('container', {
         style: {
             color: 'black'
         }
+    },
+    accessibility: {
+        typeDescription: 'Flowchart'
     }
 
 });

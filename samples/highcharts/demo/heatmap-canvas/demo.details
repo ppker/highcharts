@@ -1,6 +1,11 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Large heat map
+authors:
+  - Torstein Hønsi
+js_wrap: b
+requiresManualTesting: true
+tags:
+  - Highcharts demo
+categories:
+  - Heat and tree maps
 ...

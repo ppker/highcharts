@@ -1,9 +1,8 @@
-
-
 /**
  * This is a complicated demo of Highmaps, not intended to get you up to speed
  * quickly, but to show off some basic maps and features in one single place.
- * For the basic demo, check out http://www.highcharts.com/maps/demo/geojson instead.
+ * For the basic demo, check out https://www.highcharts.com/maps/demo/geojson
+ * instead.
  */
 
 // Base path to maps
@@ -66,7 +65,7 @@ $("#mapDropdown").change(function () {
 
         // Update info box download links
         $("#download").html(
-            '<a class="button" target="_blank" href="http://jsfiddle.net/gh/get/jquery/1.11.0/' +
+            '<a class="button" target="_blank" href="https://jsfiddle.net/gh/get/jquery/1.11.0/' +
                 'highcharts/highcharts/tree/master/samples/mapdata/' + mapKey + '">' +
                 'View clean demo</a>' +
                 '<div class="or-view-as">... or view as ' +
@@ -132,7 +131,7 @@ $("#mapDropdown").change(function () {
                 stops: [
                     [0, '#EFEFFF'],
                     [0.5, Highcharts.getOptions().colors[0]],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).brighten(-0.5).get()]
+                    [1, Highcharts.color(Highcharts.getOptions().colors[0]).brighten(-0.5).get()]
                 ]
             },
 
@@ -156,8 +155,8 @@ $("#mapDropdown").change(function () {
                     enabled: showDataLabels,
                     formatter: function () {
                         return mapKey === 'custom/world' || mapKey === 'countries/us/us-all' ?
-                                (this.point.properties && this.point.properties['hc-a2']) :
-                                this.point.name;
+                            (this.point.properties && this.point.properties['hc-a2']) :
+                            this.point.name;
                     }
                 },
                 point: {

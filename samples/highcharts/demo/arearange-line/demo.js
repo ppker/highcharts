@@ -1,5 +1,3 @@
-
-
 var ranges = [
         [1246406400000, 14.3, 27.7],
         [1246492800000, 14.5, 27.8],
@@ -75,7 +73,10 @@ Highcharts.chart('container', {
     },
 
     xAxis: {
-        type: 'datetime'
+        type: 'datetime',
+        accessibility: {
+            rangeDescription: 'Range: Jul 1st 2009 to Jul 31st 2009.'
+        }
     },
 
     yAxis: {
@@ -88,9 +89,6 @@ Highcharts.chart('container', {
         crosshairs: true,
         shared: true,
         valueSuffix: '°C'
-    },
-
-    legend: {
     },
 
     series: [{

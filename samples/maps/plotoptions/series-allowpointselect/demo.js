@@ -1,9 +1,7 @@
-
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
     // Initiate the chart
-    var chart = Highcharts.mapChart('container', {
+    const chart = Highcharts.mapChart('container', {
 
         title: {
             text: 'Allow point select'
@@ -20,7 +18,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
                 point: {
                     events: {
                         select: function () {
-                            var text = 'Selected ' + this.name + ' (' + this.value + '/km²)',
+                            const text = 'Selected ' + this.name + ' (' + this.value + '/km²)',
                                 chart = this.series.chart;
                             if (!chart.selectedLabel) {
                                 chart.selectedLabel = chart.renderer.label(text, 0, 320)
@@ -32,7 +30,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
                             }
                         },
                         unselect: function () {
-                            var text = 'Unselected ' + this.name + ' (' + this.value + '/km²)',
+                            const text = 'Unselected ' + this.name + ' (' + this.value + '/km²)',
                                 chart = this.series.chart;
                             if (!chart.unselectedLabel) {
                                 chart.unselectedLabel = chart.renderer.label(text, 0, 300)
@@ -77,8 +75,14 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
         }]
     });
 
-    $('#getselectedpoints').click(function () {
-        var selectedPoints = chart.getSelectedPoints();
-        alert('You selected ' + selectedPoints.length + ' points');
-    });
+    // Activate the button
+    const button = document.getElementById('getselectedpoints');
+    button.disabled = false;
+
+    // When the button is clicked
+    button.onclick = () => {
+        const selectedPoints = chart.getSelectedPoints().length;
+        const pluralText = selectedPoints ? '.' : 's.';
+        alert('You selected ' + selectedPoints + ' point' + pluralText);
+    };
 });

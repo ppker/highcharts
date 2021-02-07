@@ -1,6 +1,4 @@
-
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
     // Initiate the chart
     Highcharts.mapChart('container', {
@@ -52,6 +50,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
                 valueSuffix: '/km²'
             }
         }, {
+            colorAxis: false,
             type: 'mappoint',
             id: 'clicks',
             name: 'Clicks',

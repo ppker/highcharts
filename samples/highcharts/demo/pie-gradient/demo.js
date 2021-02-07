@@ -1,18 +1,18 @@
-
-
 // Radialize the colors
-Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-    return {
-        radialGradient: {
-            cx: 0.5,
-            cy: 0.3,
-            r: 0.7
-        },
-        stops: [
-            [0, color],
-            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-        ]
-    };
+Highcharts.setOptions({
+    colors: Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: {
+                cx: 0.5,
+                cy: 0.3,
+                r: 0.7
+            },
+            stops: [
+                [0, color],
+                [1, Highcharts.color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    })
 });
 
 // Build the chart
@@ -24,10 +24,15 @@ Highcharts.chart('container', {
         type: 'pie'
     },
     title: {
-        text: 'Browser market shares. January, 2015 to May, 2015'
+        text: 'Browser market shares in January, 2018'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
     },
     plotOptions: {
         pie: {
@@ -36,26 +41,19 @@ Highcharts.chart('container', {
             dataLabels: {
                 enabled: true,
                 format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                },
                 connectorColor: 'silver'
             }
         }
     },
     series: [{
-        name: 'Brands',
+        name: 'Share',
         data: [
-            { name: 'Microsoft Internet Explorer', y: 56.33 },
-            {
-                name: 'Chrome',
-                y: 24.03,
-                sliced: true,
-                selected: true
-            },
-            { name: 'Firefox', y: 10.38 },
-            { name: 'Safari', y: 4.77 }, { name: 'Opera', y: 0.91 },
-            { name: 'Proprietary or Undetectable', y: 0.2 }
+            { name: 'Chrome', y: 61.41 },
+            { name: 'Internet Explorer', y: 11.84 },
+            { name: 'Firefox', y: 10.85 },
+            { name: 'Edge', y: 4.67 },
+            { name: 'Safari', y: 4.18 },
+            { name: 'Other', y: 7.05 }
         ]
     }]
 });

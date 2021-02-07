@@ -1,5 +1,3 @@
-
-
 var converters = {
     // Latin to Farsi
     fa: function (number) {
@@ -22,14 +20,13 @@ Highcharts.setOptions({
     }
 });
 
-Highcharts.wrap(Highcharts, 'numberFormat', function (proceed) {
-    var ret = proceed.apply(0, [].slice.call(arguments, 1));
-    return converters.ar(ret);
-});
-
 Highcharts.chart('container', {
 
     chart: {
+        numberFormatter: function () {
+            var ret = Highcharts.numberFormat.apply(0, arguments);
+            return converters.ar(ret);
+        },
         type: 'column'
     },
 

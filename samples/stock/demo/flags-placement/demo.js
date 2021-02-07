@@ -1,5 +1,4 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json', function (data) {
 
     var lastDate = data[data.length - 1][0],  // Get year of last data point
         days = 24 * 36e5; // Milliseconds in a day
@@ -15,11 +14,15 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
             text: 'USD to EUR exchange rate'
         },
 
-        yAxis: {
+        yAxis: [{
             title: {
                 text: 'Exchange rate'
-            }
-        },
+            },
+            top: '15%',
+            height: '85%'
+        }, {
+            height: '15%'
+        }],
 
         series: [{
             name: 'USD to EUR',
@@ -50,6 +53,18 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
                 x: lastDate - 15 * days,
                 title: 'On axis'
             }],
+            shape: 'squarepin'
+        }, {
+            type: 'flags',
+            name: 'Flags in pane',
+            data: [{
+                x: lastDate - 40 * days,
+                title: 'In pane'
+            }, {
+                x: lastDate - 15 * days,
+                title: 'In pane'
+            }],
+            yAxis: 1,
             shape: 'squarepin'
         }]
     });

@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
     chart: {
         type: 'area'
@@ -17,8 +16,11 @@ Highcharts.chart('container', {
         }
     },
     yAxis: {
+        labels: {
+            format: '{value}%'
+        },
         title: {
-            text: 'Percent'
+            enabled: false
         }
     },
     tooltip: {
@@ -33,6 +35,16 @@ Highcharts.chart('container', {
             marker: {
                 lineWidth: 1,
                 lineColor: '#ffffff'
+            },
+            accessibility: {
+                pointDescriptionFormatter: function (point) {
+                    function round(x) {
+                        return Math.round(x * 100) / 100;
+                    }
+                    return (point.index + 1) + ', ' + point.category + ', ' +
+                        point.y + ' millions, ' + round(point.percentage) + '%, ' +
+                        point.series.name;
+                }
             }
         }
     },

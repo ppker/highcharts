@@ -25,8 +25,7 @@ var data = [
     ['ec-1076', 20],
     ['ec-na', 21],
     ['ec-tu', 22],
-    ['ec-ga', 23],
-    ['undefined', 24]
+    ['ec-ga', 23]
 ];
 
 // Create the chart
@@ -67,11 +66,12 @@ Highcharts.mapChart('container', {
             format: '{point.name}'
         }
     }, {
-            name: 'Separators',
-            type: 'mapline',
-            data: Highcharts.geojson(Highcharts.maps['countries/ec/ec-all'], 'mapline'),
-            color: 'silver',
-            showInLegend: false,
-            enableMouseTracking: false
-        }]
+        name: 'Separators',
+        type: 'mapline',
+        data: Highcharts.geojson(Highcharts.maps['countries/ec/ec-all'], 'mapline'),
+        color: 'silver',
+        nullColor: 'silver',
+        showInLegend: false,
+        enableMouseTracking: false
+    }]
 });

@@ -14,7 +14,7 @@ function onChartLoad() {
         path = [],
         angle,
         radius,
-        badgeColor = Highcharts.Color(Highcharts.getOptions().colors[0]).brighten(-0.2).get(),
+        badgeColor = Highcharts.color(Highcharts.getOptions().colors[0]).brighten(-0.2).get(),
         spike,
         empImage,
         big5,
@@ -147,13 +147,11 @@ function onChartLoad() {
         y: centerY + 62
     });
 
-
     // Prepare mouseover
     renderer = this.renderer;
     if (renderer.defs) { // is SVG
-        $.each(this.get('employees').points, function () {
-            var point = this,
-                pattern;
+        this.get('employees').points.forEach(point => {
+            let pattern;
             if (point.image) {
                 pattern = renderer.createElement('pattern').attr({
                     id: 'pattern-' + point.image,
@@ -184,15 +182,12 @@ function onChartLoad() {
     }
 }
 
-
-var options = {
-
+const options = {
     chart: {
         events: {
             load: onChartLoad
         }
     },
-
     xAxis: {
         type: 'datetime',
         minTickInterval: 365 * 24 * 36e5,
@@ -235,17 +230,20 @@ var options = {
         }]
 
     },
-
     title: {
         text: 'Highcharts and Highsoft timeline'
     },
-
+    caption: {
+        text: 'An advanced demo showing a combination of various Highcharts features, including flags and plot bands. The chart shows how Highcharts and Highsoft has evolved over time, with number of employees, revenue, search popularity, office locations, and various events of interest.'
+    },
+    credits: {
+        enabled: false
+    },
     tooltip: {
         style: {
             width: '250px'
         }
     },
-
     yAxis: [{
         max: 100,
         labels: {
@@ -272,7 +270,6 @@ var options = {
         opposite: true,
         gridLineWidth: 0
     }],
-
     plotOptions: {
         series: {
             marker: {
@@ -285,10 +282,19 @@ var options = {
         flags: {
             tooltip: {
                 xDateFormat: '%B %e, %Y'
+            },
+            accessibility: {
+                pointDescriptionFormatter: function (point) {
+                    var timeDesc = Highcharts.SeriesAccessibilityDescriber
+                            .getPointA11yTimeDescription(point),
+                        flagTitle = point.title,
+                        flagText = point.text;
+
+                    return timeDesc + ', ' + flagTitle + ': ' + flagText + '.';
+                }
             }
         }
     },
-
     series: [{
         type: 'spline',
         id: 'google-trends',
@@ -393,4 +399,4 @@ if (Highcharts.seriesTypes.flags) {
     });
 }
 
-$('#container').highcharts(options);
+Highcharts.chart('container', options);

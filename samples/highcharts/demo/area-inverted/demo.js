@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
     chart: {
         type: 'area',
@@ -7,11 +6,11 @@ Highcharts.chart('container', {
     title: {
         text: 'Average fruit consumption during one week'
     },
-    subtitle: {
-        style: {
-            position: 'absolute',
-            right: '0px',
-            bottom: '10px'
+    accessibility: {
+        keyboardNavigation: {
+            seriesNavigation: {
+                mode: 'serialize'
+            }
         }
     },
     legend: {
@@ -22,7 +21,8 @@ Highcharts.chart('container', {
         y: 100,
         floating: true,
         borderWidth: 1,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF'
     },
     xAxis: {
         categories: [
@@ -39,11 +39,7 @@ Highcharts.chart('container', {
         title: {
             text: 'Number of units'
         },
-        labels: {
-            formatter: function () {
-                return this.value;
-            }
-        },
+        allowDecimals: false,
         min: 0
     },
     plotOptions: {

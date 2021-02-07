@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
     chart: {
         type: 'spline',
@@ -17,9 +16,10 @@ Highcharts.chart('container', {
             text: 'Altitude'
         },
         labels: {
-            formatter: function () {
-                return this.value + 'km';
-            }
+            format: '{value} km'
+        },
+        accessibility: {
+            rangeDescription: 'Range: 0 to 80 km.'
         },
         maxPadding: 0.05,
         showLastLabel: true
@@ -29,9 +29,10 @@ Highcharts.chart('container', {
             text: 'Temperature'
         },
         labels: {
-            formatter: function () {
-                return this.value + '°';
-            }
+            format: '{value}°'
+        },
+        accessibility: {
+            rangeDescription: 'Range: -90°C to 20°C.'
         },
         lineWidth: 2
     },

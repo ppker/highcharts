@@ -1,6 +1,10 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Pie with gradient fill
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Pie charts
 ...

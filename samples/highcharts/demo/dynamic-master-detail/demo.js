@@ -1,19 +1,17 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.json&callback=?', function (data) {
-    var detailChart;
-
-    $(document).ready(function () {
+Highcharts.getJSON(
+    'https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/usdeur.json',
+    data => {
+        let detailChart;
 
         // create the detail chart
         function createDetail(masterChart) {
-
             // prepare the detail chart
             var detailData = [],
                 detailStart = data[0][0];
 
-            $.each(masterChart.series[0].data, function () {
-                if (this.x >= detailStart) {
-                    detailData.push(this.y);
+            masterChart.series[0].data.forEach(point => {
+                if (point.x >= detailStart) {
+                    detailData.push(point.y);
                 }
             });
 
@@ -32,10 +30,12 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
                     enabled: false
                 },
                 title: {
-                    text: 'Historical USD to EUR Exchange Rate'
+                    text: 'Historical USD to EUR Exchange Rate',
+                    align: 'left'
                 },
                 subtitle: {
-                    text: 'Select an area by dragging across the lower chart'
+                    text: 'Select an area by dragging across the lower chart',
+                    align: 'left'
                 },
                 xAxis: {
                     type: 'datetime'
@@ -106,9 +106,9 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
                                 xAxis = this.xAxis[0];
 
                             // reverse engineer the last part of the data
-                            $.each(this.series[0].data, function () {
-                                if (this.x > min && this.x < max) {
-                                    detailData.push([this.x, this.y]);
+                            this.series[0].data.forEach(point => {
+                                if (point.x > min && point.x < max) {
+                                    detailData.push([point.x, point.y]);
                                 }
                             });
 
@@ -138,6 +138,9 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
                 },
                 title: {
                     text: null
+                },
+                accessibility: {
+                    enabled: false
                 },
                 xAxis: {
                     type: 'datetime',
@@ -210,28 +213,17 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=usdeur.jso
                     enabled: false
                 }
 
-            }, function (masterChart) {
+            }, masterChart => {
                 createDetail(masterChart);
             }); // return chart instance
         }
 
         // make the container smaller and add a second container for the master chart
-        var $container = $('#container')
-            .css('position', 'relative');
-
-        $('<div id="detail-container">')
-            .appendTo($container);
-
-        $('<div id="master-container">')
-            .css({
-                position: 'absolute',
-                top: 300,
-                height: 100,
-                width: '100%'
-            })
-                .appendTo($container);
+        const container = document.getElementById('container');
+        container.style.position = 'relative';
+        container.innerHTML += '<div id="detail-container"></div><div id="master-container"></div>';
 
         // create master and in its callback, create the detail chart
         createMaster();
-    });
-});
+    }
+);

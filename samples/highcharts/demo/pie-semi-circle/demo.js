@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
@@ -6,13 +5,18 @@ Highcharts.chart('container', {
         plotShadow: false
     },
     title: {
-        text: 'Browser<br>shares<br>2015',
+        text: 'Browser<br>shares<br>2017',
         align: 'center',
         verticalAlign: 'middle',
-        y: 40
+        y: 60
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
     },
     plotOptions: {
         pie: {
@@ -26,7 +30,8 @@ Highcharts.chart('container', {
             },
             startAngle: -90,
             endAngle: 90,
-            center: ['50%', '75%']
+            center: ['50%', '75%'],
+            size: '110%'
         }
     },
     series: [{
@@ -34,14 +39,14 @@ Highcharts.chart('container', {
         name: 'Browser share',
         innerSize: '50%',
         data: [
-            ['Firefox',   10.38],
-            ['IE',       56.33],
-            ['Chrome', 24.03],
-            ['Safari',    4.77],
-            ['Opera',     0.91],
+            ['Chrome', 58.9],
+            ['Firefox', 13.29],
+            ['Internet Explorer', 13],
+            ['Edge', 3.78],
+            ['Safari', 3.42],
             {
-                name: 'Proprietary or Undetectable',
-                y: 0.2,
+                name: 'Other',
+                y: 7.61,
                 dataLabels: {
                     enabled: false
                 }
@@ -49,4 +54,3 @@ Highcharts.chart('container', {
         ]
     }]
 });
-

@@ -1,9 +1,8 @@
+let cursor = 500;
+const chunk = 100;
+let data = usdeur.slice(0, cursor);
 
-var data = usdeur.splice(0, 500);
-
-
-var chart = Highcharts.stockChart('container', {
-
+const chart = Highcharts.stockChart('container', {
     rangeSelector: {
         selected: 1
     },
@@ -14,12 +13,13 @@ var chart = Highcharts.stockChart('container', {
     }]
 });
 
-$('#button').click(function () {
-    var i = 0,
-        series = chart.series[0];
-    data = usdeur.splice(0, 100);
-    for (i; i < data.length; i += 1) {
-        series.addPoint(data[i], false);
+document.getElementById('button').addEventListener('click', () => {
+    data = usdeur.slice(cursor, cursor + chunk);
+    cursor += chunk;
+
+    for (let i = 0; i < data.length; i++) {
+        chart.series[0].addPoint(data[i], false);
     }
+
     chart.redraw();
 });

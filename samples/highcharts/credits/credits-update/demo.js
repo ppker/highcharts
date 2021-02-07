@@ -1,40 +1,35 @@
-
-var chart = Highcharts.chart('container', {
-
+const chart = Highcharts.chart('container', {
     title: {
         text: 'Credits update'
     },
-
     credits: {
         enabled: false
     },
-
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },
-
     series: [{
         data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
     }]
 });
 
-$('#credits-enable').click(function () {
+document.getElementById('credits-enable').addEventListener('click', () => {
     chart.addCredits({
         enabled: true
     });
 });
 
-$('#credits-disable').click(function () {
+document.getElementById('credits-disable').addEventListener('click', () => {
     chart.credits.update({
         enabled: false
     });
 });
 
-$('#credits-custom').click(function () {
+document.getElementById('credits-custom').addEventListener('click', () => {
     if (chart.credits) {
         chart.credits.update({
             text: 'MyFancyCompany',
-            href: 'http://www.example.com',
+            href: 'https://www.example.com',
             position: {
                 align: 'left',
                 x: 10
@@ -47,11 +42,11 @@ $('#credits-custom').click(function () {
     }
 });
 
-$('#credits-default').click(function () {
+document.getElementById('credits-default').addEventListener('click', () => {
     if (chart.credits) {
         chart.credits.update({
             text: 'Highcharts.com',
-            href: 'http://www.highcharts.com',
+            href: 'https://www.highcharts.com',
             position: {
                 align: 'right',
                 x: -10

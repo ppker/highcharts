@@ -1,5 +1,4 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=new-intraday.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/new-intraday.json', function (data) {
 
     // create the chart
     Highcharts.stockChart('container', {
@@ -60,7 +59,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=new-intrad
                 },
                 stops: [
                     [0, Highcharts.getOptions().colors[0]],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                    [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
                 ]
             },
             threshold: null

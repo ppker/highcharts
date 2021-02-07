@@ -1,6 +1,11 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Click to add a point
+authors:
+  - Torstein Hønsi
+js_wrap: b
+skipTest: true
+tags:
+  - Highcharts demo
+categories:
+  - Dynamic charts
 ...

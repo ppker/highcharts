@@ -1,6 +1,5 @@
-
-var chart;
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+let chart;
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
     // Initiate the chart
     chart = Highcharts.mapChart('container', {
@@ -37,8 +36,12 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
     });
 });
 
-$('#setextremes').click(function () {
+const zoomToEurope = () => {
     chart.xAxis[0].setExtremes(4800, 4800, false);
     chart.yAxis[0].setExtremes(-9300, -7500, false);
     chart.redraw();
-});
+};
+
+document.getElementById('setextremes').onclick = () => {
+    zoomToEurope();
+};

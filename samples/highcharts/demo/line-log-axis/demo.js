@@ -1,4 +1,3 @@
-
 Highcharts.chart('container', {
 
     title: {
@@ -6,12 +5,19 @@ Highcharts.chart('container', {
     },
 
     xAxis: {
-        tickInterval: 1
+        tickInterval: 1,
+        type: 'logarithmic',
+        accessibility: {
+            rangeDescription: 'Range: 1 to 10'
+        }
     },
 
     yAxis: {
         type: 'logarithmic',
-        minorTickInterval: 0.1
+        minorTickInterval: 0.1,
+        accessibility: {
+            rangeDescription: 'Range: 0.1 to 1000'
+        }
     },
 
     tooltip: {

@@ -1,10 +1,8 @@
-
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=us-population-density.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/us-population-density.json', function (data) {
 
     // Make it joinable
-    $.each(data, function () {
-        this.hasc = 'US.' + this.code.toUpperCase();
+    data.forEach(function (p) {
+        p.hasc = 'US.' + p.code.toUpperCase();
     });
 
     // Instanciate the map

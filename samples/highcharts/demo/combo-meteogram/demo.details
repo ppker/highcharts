@@ -1,6 +1,11 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Meteogram
+authors:
+  - Torstein Hønsi
+js_wrap: b
+requiresManualTesting: true
+tags:
+  - Highcharts demo
+categories:
+  - Combinations
 ...

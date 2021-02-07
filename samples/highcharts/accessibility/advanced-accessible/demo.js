@@ -1,8 +1,10 @@
-
-
 // Define custom series type for displaying low/med/high values using boxplot as a base
 Highcharts.seriesType('lowmedhigh', 'boxplot', {
-    keys: ['low', 'median', 'high']
+    keys: ['low', 'median', 'high'],
+    tooltip: {
+        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: ' +
+            'Low <b>{point.low}</b> - Median <b>{point.median}</b> - High <b>{point.high}</b><br/>'
+    }
 }, {
     // Change point shape to a line with three crossing lines for low/median/high
     // Stroke width is hardcoded to 1 for simplicity
@@ -19,6 +21,10 @@ Highcharts.seriesType('lowmedhigh', 'boxplot', {
                 highPlot = Math.floor(point.highPlot) + 0.5,
                 medianPlot = Math.floor(point.medianPlot) + 0.5,
                 lowPlot = Math.floor(point.lowPlot) + 0.5 - (point.low === 0 ? 1 : 0); // Sneakily draw low marker even if 0
+
+            if (point.isNull) {
+                return;
+            }
 
             if (!graphic) {
                 point.graphic = graphic = series.chart.renderer.path('point').add(series.group);
@@ -47,45 +53,76 @@ Highcharts.seriesType('lowmedhigh', 'boxplot', {
 
 // Create chart
 var chart = Highcharts.chart('container', {
-    accessibility: {
-        keyboardNavigation: {
-            skipNullPoints: true
-        },
-        pointDescriptionFormatter: function (point) {
-            return point.category + ', low ' + point.low + ', median ' + point.median + ', high ' + point.high;
-        },
-        seriesDescriptionFormatter: function (series) {
-            return series.name + ', series ' + (series.index + 1) + ' of ' + series.chart.series.length + ' with ' + series.points.length + ' data points.';
-        }
-    },
     chart: {
-        type: 'lowmedhigh',
-        typeDescription: 'Low, median, high. Each data point has a low, median and high value, depicted vertically as small ticks.', // Describe the chart type to screen reader users, since this is not a traditional boxplot chart
-        description: 'Chart depicting fictional fruit consumption data, with the minimum, maximum and median values for each month of 2015. Most plums were eaten in spring, and none at all in July or August. Bananas and apples were both consumed in smaller numbers and steadily throughout the year.'
+        type: 'lowmedhigh'
     },
+
     title: {
-        text: 'Daily company fruit consumption 2015'
+        text: 'Daily company fruit consumption 2019'
     },
+
+    accessibility: {
+        point: {
+            descriptionFormatter: function (point) {
+                // Use default formatter for null points
+                if (point.isNull) {
+                    return false;
+                }
+
+                return point.category + ', low ' + point.low + ', median ' +
+                    point.median + ', high ' + point.high;
+            }
+        },
+
+        series: {
+            descriptionFormatter: function (series) {
+                return series.name + ', series ' + (series.index + 1) + ' of ' +
+                    series.chart.series.length + ' with ' + series.points.length +
+                    ' data points.';
+            }
+        },
+
+        typeDescription: 'Low, median, high. Each data point has a low, median and high value, depicted vertically as small ticks.' // Describe the chart type to screen reader users, since this is not a traditional boxplot chart
+    },
+
     xAxis: [{
-        crosshair: true,
-        description: 'Months of the year',
+        accessibility: {
+            description: 'Months of the year'
+        },
         categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     }],
+
     yAxis: {
         title: {
             text: 'Fruits consumed'
         },
         min: 0
     },
+
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 550
+            },
+            chartOptions: {
+                xAxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                }
+            }
+        }]
+    },
+
+    tooltip: {
+        shared: true
+    },
+
     plotOptions: {
         series: {
             stickyTracking: true,
             whiskerWidth: 5
         }
     },
-    tooltip: {
-        pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}:<br/>Low: <b>{point.low}</b><br/>Median: <b>{point.median}</b><br/>High: <b>{point.high}</b><br/>'
-    },
+
     series: [{
         name: 'Plums',
         data: [

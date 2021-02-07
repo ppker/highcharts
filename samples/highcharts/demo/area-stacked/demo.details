@@ -1,6 +1,13 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Stacked area
+authors:
+  - Torstein Hønsi
+js_wrap: b
+alt_text: >-
+  Highcharts percentage area chart JavaScript example graph compares and
+  estimates global continental population growth over time.
+tags:
+  - Highcharts demo
+categories:
+  - Area charts
 ...

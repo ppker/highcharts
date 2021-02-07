@@ -1,4 +1,3 @@
-
 // Prepare the data
 var data = [],
     n = 1000000,
@@ -56,7 +55,8 @@ Highcharts.chart('container', {
     series: [{
         boostThreshold: 1,
         type: 'scatter',
-        color: 'rgba(152,0,67,0.1)',
+        color: 'rgb(152, 0, 67)',
+        fillOpacity: 0.1,
         data: data,
         marker: {
             radius: 0.1

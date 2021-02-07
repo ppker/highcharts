@@ -1,9 +1,6 @@
-
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.json&callback=?', function (data) {
+Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
     // Create the chart
     Highcharts.stockChart('container', {
-
 
         rangeSelector: {
             selected: 1
@@ -11,6 +8,13 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=aapl-c.jso
 
         title: {
             text: 'AAPL Stock Price'
+        },
+
+        subtitle: {
+            text: 'Note: This sample is obsolete as of v9.0, when native browser date pickers were implemented',
+            style: {
+                color: 'red'
+            }
         },
 
         series: [{
@@ -40,4 +44,3 @@ $.datepicker.setDefaults({
         this.onblur();
     }
 });
-

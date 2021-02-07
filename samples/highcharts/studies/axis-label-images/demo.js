@@ -1,5 +1,3 @@
-
-
 /**
  * A small Highcharts snippet/plugin for adding images to axis labels
  */
@@ -14,15 +12,13 @@
             axis = this.axis,
             image = axis.options.images && axis.options.images[this.pos],
             xy = this.label && this.label.xy;
-            
 
         if (image && xy) {
-        
+
             // xy is bottom center of the label. Put the image to the left.
             xy.x -= this.label.getBBox().width / 2 + iconSize + 10;
             xy.y -= (iconSize + this.label.getBBox().height) / 2;
 
-            
             if (!tick.image) {
                 tick.image = axis.chart.renderer.image(image, xy.x, xy.y, iconSize, iconSize)
                     .add();
@@ -32,10 +28,10 @@
                     y: xy.y
                 });
             }
+
         }
     });
 }(Highcharts));
-
 
 
 Highcharts.chart('container', {

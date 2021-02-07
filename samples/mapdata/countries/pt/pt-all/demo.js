@@ -21,8 +21,7 @@ var data = [
     ['pt-vi', 16],
     ['pt-vr', 17],
     ['pt-ma', 18],
-    ['pt-ac', 19],
-    ['undefined', 20]
+    ['pt-ac', 19]
 ];
 
 // Create the chart
@@ -63,11 +62,12 @@ Highcharts.mapChart('container', {
             format: '{point.name}'
         }
     }, {
-            name: 'Separators',
-            type: 'mapline',
-            data: Highcharts.geojson(Highcharts.maps['countries/pt/pt-all'], 'mapline'),
-            color: 'silver',
-            showInLegend: false,
-            enableMouseTracking: false
-        }]
+        name: 'Separators',
+        type: 'mapline',
+        data: Highcharts.geojson(Highcharts.maps['countries/pt/pt-all'], 'mapline'),
+        color: 'silver',
+        nullColor: 'silver',
+        showInLegend: false,
+        enableMouseTracking: false
+    }]
 });

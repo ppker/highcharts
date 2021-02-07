@@ -1,4 +1,3 @@
-
 /* Automate testing of module somewhat */
 
 var nav = Highcharts.win.navigator,
@@ -65,6 +64,8 @@ Highcharts.Chart.prototype.exportTest = function (type) {
     });
 };
 
+/* Does not work after downloadURL was removed from namespace
+   https://github.com/highcharts/highcharts/commit/3912f1ecbb79d098defa93e729d968bebd4222f8
 Highcharts.Chart.prototype.callbacks.push(function (chart) {
     if (!chart.options.chart.forExport) {
         var menu = chart.exportSVGElements && chart.exportSVGElements[0],
@@ -85,10 +86,9 @@ Highcharts.Chart.prototype.callbacks.push(function (chart) {
         }
     }
 });
+*/
 
 /* End of automation code */
-
-
 
 
 // NOTE: dataURL length limits in certain browsers. #6108
@@ -113,4 +113,3 @@ Highcharts.chart('container', {
         data: arr
     }]
 });
-

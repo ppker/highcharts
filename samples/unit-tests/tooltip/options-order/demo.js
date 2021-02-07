@@ -1,13 +1,15 @@
 QUnit.test('Options importantance order static', function (assert) {
     /* The importantance asscending order:
-    * 1) default / global -> tooltip
-    * 2) default / global -> plotOptions.series
-    * 3) default / global -> plotOptions.<seriesType>
-    * 4) user set -> tooltip
-    * 5) user set -> plotOptions.series
-    * 6) user set -> plotOptions.<seriesType>
-    * 7) user set -> series
-    */
+     * 1) default / global -> tooltip
+     * 2) default / global -> plotOptions.series
+     * 3) default / global -> plotOptions.<seriesType>
+     * 4) user set -> tooltip
+     * 5) user set -> plotOptions.series
+     * 6) user set -> plotOptions.<seriesType>
+     * 7) user set -> series
+     */
+    var resetTo = Highcharts.merge(Highcharts.defaultOptions.tooltip);
+
     Highcharts.setOptions({
         tooltip: {
             valueDecimals: '1', // 1)
@@ -63,12 +65,14 @@ QUnit.test('Options importantance order static', function (assert) {
                     }
                 }
             },
-            series: [{
-                data: [1.12345, 2, 3],
-                tooltip: {
-                    valuePrefix: 'prefix ' // 7)
+            series: [
+                {
+                    data: [1.12345, 2, 3],
+                    tooltip: {
+                        valuePrefix: 'prefix ' // 7)
+                    }
                 }
-            }]
+            ]
         }),
         defaultOptions = Highcharts.getOptions(),
         series = chart.series[0];
@@ -156,18 +160,44 @@ QUnit.test('Options importantance order static', function (assert) {
         'prefix ',
         '...and 7) option was merged correctly'
     );
+
+    // Reset
+    delete Highcharts.defaultOptions.tooltip.valueDecimals;
+    delete Highcharts.defaultOptions.tooltip.valueSuffix;
+    delete Highcharts.defaultOptions.tooltip.footerFormat;
+    delete Highcharts.defaultOptions.tooltip.valuePrefix;
+    Highcharts.setOptions({
+        tooltip: resetTo
+    });
+
+    delete Highcharts.defaultOptions.plotOptions.series.tooltip;
+    delete Highcharts.defaultOptions.plotOptions.line.tooltip;
 });
 
 QUnit.test('Options importantance order dynamic (#6218)', function (assert) {
     /* The importantance asscending order:
-    * 1) default / global -> tooltip
-    * 2) default / global -> plotOptions.series
-    * 3) default / global -> plotOptions.<seriesType>
-    * 4) user set -> tooltip
-    * 5) user set -> plotOptions.series
-    * 6) user set -> plotOptions.<seriesType>
-    * 7) user set -> series
-    */
+     * 1) default / global -> tooltip
+     * 2) default / global -> plotOptions.series
+     * 3) default / global -> plotOptions.<seriesType>
+     * 4) user set -> tooltip
+     * 5) user set -> plotOptions.series
+     * 6) user set -> plotOptions.<seriesType>
+     * 7) user set -> series
+     */
+    var resetTo = {
+        tooltip: {
+            headerFormat: Highcharts.defaultOptions.tooltip.headerFormat
+        },
+        plotOptions: {
+            line: {
+                tooltip: undefined
+            },
+            series: {
+                tooltip: undefined
+            }
+        }
+    };
+
     Highcharts.setOptions({
         tooltip: {
             headerFormat: '1' // 1)
@@ -202,12 +232,14 @@ QUnit.test('Options importantance order dynamic (#6218)', function (assert) {
                 }
             }
         },
-        series: [{
-            data: [1.1234, 2, 3],
-            tooltip: {
-                //headerFormat: '7' // 7)
+        series: [
+            {
+                data: [1.1234, 2, 3],
+                tooltip: {
+                    //headerFormat: '7' // 7)
+                }
             }
-        }]
+        ]
     });
 
     // 1) default / global -> tooltip
@@ -312,4 +344,7 @@ QUnit.test('Options importantance order dynamic (#6218)', function (assert) {
         '7',
         '7) chart.series[n] used'
     );
+
+    // Reset
+    Highcharts.setOptions(resetTo);
 });

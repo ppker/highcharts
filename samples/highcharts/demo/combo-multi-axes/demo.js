@@ -1,13 +1,14 @@
-
 Highcharts.chart('container', {
     chart: {
         zoomType: 'xy'
     },
     title: {
-        text: 'Average Monthly Weather Data for Tokyo'
+        text: 'Average Monthly Weather Data for Tokyo',
+        align: 'left'
     },
     subtitle: {
-        text: 'Source: WorldClimate.com'
+        text: 'Source: WorldClimate.com',
+        align: 'left'
     },
     xAxis: [{
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -70,7 +71,9 @@ Highcharts.chart('container', {
         verticalAlign: 'top',
         y: 55,
         floating: true,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+        backgroundColor:
+            Highcharts.defaultOptions.legend.backgroundColor || // theme
+            'rgba(255,255,255,0.25)'
     },
     series: [{
         name: 'Rainfall',
@@ -101,6 +104,39 @@ Highcharts.chart('container', {
         tooltip: {
             valueSuffix: ' °C'
         }
-    }]
+    }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    floating: false,
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom',
+                    x: 0,
+                    y: 0
+                },
+                yAxis: [{
+                    labels: {
+                        align: 'right',
+                        x: 0,
+                        y: -6
+                    },
+                    showLastLabel: false
+                }, {
+                    labels: {
+                        align: 'left',
+                        x: 0,
+                        y: -6
+                    },
+                    showLastLabel: false
+                }, {
+                    visible: false
+                }]
+            }
+        }]
+    }
 });
-

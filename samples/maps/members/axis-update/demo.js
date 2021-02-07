@@ -1,6 +1,5 @@
-
 var chart;
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
     // Initiate the chart
     chart = Highcharts.mapChart('container', {
@@ -35,23 +34,23 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
     });
 });
 
-var blackAndWhite = true,
+let blackAndWhite = true,
     log = true;
 
-$('#update-color').click(function () {
-    var colorAxis = chart.colorAxis[0];
+document.getElementById('update-color').onclick = () => {
+    const colorAxis = chart.colorAxis[0];
 
     colorAxis.update({
         maxColor: blackAndWhite ? '#980043' : '#000000'
     });
     blackAndWhite = !blackAndWhite;
-});
+};
 
-$('#update-linlog').click(function () {
-    var colorAxis = chart.colorAxis[0];
+document.getElementById('update-linlog').onclick = () => {
+    const colorAxis = chart.colorAxis[0];
 
     colorAxis.update({
         type: log ? 'linear' : 'logarithmic'
     });
     log = !log;
-});
+};

@@ -5,8 +5,10 @@
 
 
 #### Live demo with steps to reproduce
-<!-- template: jsfiddle.net/highcharts/llexl/ -->
+<!-- template: https://jsfiddle.net/highcharts/LLExL/ -->
 
+#### Product version
+<!--- Highcharts, Highstock or Highmaps plus version number -->
 
 #### Affected browser(s)
 

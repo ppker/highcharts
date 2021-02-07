@@ -1,4 +1,3 @@
-
 Highcharts.stockChart('container', {
 
     title: {
@@ -6,7 +5,7 @@ Highcharts.stockChart('container', {
     },
 
     subtitle: {
-        text: 'This text has <b>bold</b>, <i>italic</i>, <span style="color: red">coloured</span>, <a href="http://example.com">linked</a> and <br/>line-broken text.'
+        text: 'This text has <b>bold</b>, <i>italic</i>, <span style="color: red">coloured</span>, <a href="http://example.com">linked</a> and<br/>line-broken text.'
     },
 
     rangeSelector: {

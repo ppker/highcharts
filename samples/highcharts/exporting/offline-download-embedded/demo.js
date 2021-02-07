@@ -1,4 +1,3 @@
-
 /* Automate testing of module somewhat */
 
 var nav = Highcharts.win.navigator,
@@ -69,12 +68,14 @@ Highcharts.Chart.prototype.exportTest = function (type) {
     });
 };
 
+/* Does not work after downloadURL was removed from namespace
+   https://github.com/highcharts/highcharts/commit/3912f1ecbb79d098defa93e729d968bebd4222f8
 Highcharts.Chart.prototype.callbacks.push(function (chart) {
     if (!chart.options.chart.forExport) {
         var menu = chart.exportSVGElements && chart.exportSVGElements[0],
             oldHandler,
             types = ['image/png', 'image/jpeg', 'image/svg+xml',
-                     'application/pdf'],
+                'application/pdf'],
             intervalRef;
 
         // Try to avoid race conditions by queuing requests.
@@ -104,9 +105,9 @@ Highcharts.Chart.prototype.callbacks.push(function (chart) {
         }
     }
 });
+*/
 
 /* End of automation code */
-
 
 
 Highcharts.chart('container', {
@@ -160,4 +161,3 @@ Highcharts.chart('container', {
     }]
 
 });
-

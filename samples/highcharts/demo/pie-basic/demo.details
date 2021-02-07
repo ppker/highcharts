@@ -1,6 +1,14 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Pie chart
+authors:
+  - Torstein Hønsi
+js_wrap: b
+alt_text: >-
+  Highcharts basic pie chart JavaScript example compares Chrome Firefox Safari
+  browser market share as proportional segments.
+tags:
+  - Highcharts demo
+categories:
+  - Pie charts
+priority: 1
 ...

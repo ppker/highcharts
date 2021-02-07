@@ -1,87 +1,3 @@
-
-// Workaround to modify the data table.
-// The default format is a bit messy for this dataset.
-Highcharts.Chart.prototype.callbacks.push(function (chart) {
-    // We wrap the specific instance after the chart has been created to make
-    // sure we don't interfere with the table mutation of the accessibility
-    // module.
-    Highcharts.wrap(chart, 'viewData', function (proceed) {
-        if (this.dataTableDiv) {
-            return;
-        }
-
-        proceed.apply(this); // Run original method
-
-        var tableDiv = document.getElementById('highcharts-data-table-' + this.index),
-            thead = tableDiv.getElementsByTagName('thead')[0],
-            tbody = tableDiv.getElementsByTagName('tbody')[0],
-            first = [],
-            second = [],
-            third = [],
-            fourth = [];
-
-        // Remove first column from head
-        Highcharts.each(thead.children, function (row) {
-            row.deleteCell(0);
-        });
-
-        Highcharts.each(tbody.children, function (row) {
-            // Remove first column from body
-            row.deleteCell(0);
-
-            // Split rows into columns
-            if (row.firstChild.innerHTML.length) {
-                first.push([row.firstChild.innerHTML, row.children[1].innerHTML]);
-            } else if (row.children[2] && row.children[2].innerHTML.length) {
-                second.push([row.children[2].innerHTML, row.children[3].innerHTML]);
-            } else if (row.children[4] && row.children[4].innerHTML.length) {
-                third.push([row.children[4].innerHTML, row.children[5].innerHTML]);
-            } else if (row.children[6] && row.children[6].innerHTML.length) {
-                fourth.push([row.children[6].innerHTML, row.children[7].innerHTML]);
-            }
-        });
-
-        // Remove existing table body
-        tbody.innerHTML = '';
-
-        for (var i = 0; i < Math.max(
-            first.length, second.length, third.length, fourth.length
-        ); ++i) {
-            tbody.insertAdjacentHTML('beforeend',
-                '<tr>' +
-                (first[i] ?
-                    '<td>' + first[i][0] + '</td>' +
-                    '<td class="number">' + first[i][1] + '</td>' :
-                    '<td></td><td></td>'
-                ) +
-                (second[i] ?
-                    '<td>' + second[i][0] + '</td>' +
-                    '<td class="number">' + second[i][1] + '</td>' :
-                    '<td></td><td></td>'
-                ) +
-                (third[i] ?
-                    '<td>' + third[i][0] + '</td>' +
-                    '<td class="number">' + third[i][1] + '</td>' :
-                    '<td></td><td></td>'
-                ) +
-                (fourth[i] ?
-                    '<td>' + fourth[i][0] + '</td>' +
-                    '<td class="number">' + fourth[i][1] + '</td>' :
-                    '<td></td><td></td>'
-                ) +
-                '</tr>'
-            );
-        }
-    });
-
-    // Remove click events on container to avoid having "clickable" announced by AT
-    // These events are needed for custom click events, drag to zoom, and navigator
-    // support.
-    chart.container.onmousedown = null;
-    chart.container.onclick = null;
-});
-
-
 // Function to run on series show/hide to update the pointStart settings of
 // all series. We do this to avoid gaps on the xAxis when hiding series.
 function updatePointStart() {
@@ -105,7 +21,7 @@ function updatePointStart() {
 }
 
 function dollarFormat(x) {
-    return '$' + Highcharts.numberFormat(x, -1);
+    return '$' + Highcharts.numberFormat(x, 0);
 }
 
 var colors = Highcharts.getOptions().colors;
@@ -116,34 +32,22 @@ Highcharts.setOptions({
     }
 });
 
-var chart = Highcharts.chart('container', {
+Highcharts.chart('container', {
     chart: {
-        type: 'column',
-        description: 'Chart displaying art grants in 2016, grouped by grant category. ' +
-        'Cultural Center grants have significantly higher individual grant amounts than the other categories. ' +
-        'The largest grant amount went to SOMArts Cultural Centers, and was $630,191.36. ' +
-        'The chart leaves out all grants below $50,000. ' +
-        'The chart displays one column series for each of the 4 grant categories, ' +
-        'as well as a line series for each of the grant category totals.'
+        type: 'column'
     },
 
     accessibility: {
-        seriesDescriptionFormatter: function (series) {
-            return series.type !== 'line' ? series.buildSeriesInfoString() :
-                series.name + ', ' + dollarFormat(series.points[0].y);
-        }
-    },
-
-    exporting: {
-        csv: {
-            columnHeaderFormatter: function (item, key) {
-                if (key === 'name') {
-                    return 'Grant applicant';
-                }
-                if (key === 'y') {
-                    return 'Grant amount';
-                }
-                return key;
+        series: {
+            descriptionFormatter: function (series) {
+                return series.type === 'line' ?
+                    series.name + ', ' + dollarFormat(series.points[0].y) :
+                    series.name + ' grant amounts, bar series with ' + series.points.length + ' bars.';
+            }
+        },
+        keyboardNavigation: {
+            seriesNavigation: {
+                mode: 'serialize'
             }
         }
     },
@@ -159,7 +63,10 @@ var chart = Highcharts.chart('container', {
 
     xAxis: {
         visible: false,
-        description: 'Grant applicants'
+        accessibility: {
+            description: 'Grant applicants',
+            rangeDescription: ''
+        }
     },
 
     yAxis: [{
@@ -175,7 +82,9 @@ var chart = Highcharts.chart('container', {
         },
         gridLineWidth: 1
     }, {
-        description: 'Grant category totals',
+        accessibility: {
+            description: 'Grant category totals'
+        },
         opposite: true,
         min: 0,
         max: 2400000,
@@ -200,7 +109,7 @@ var chart = Highcharts.chart('container', {
         column: {
             keys: ['name', 'y'],
             grouping: false,
-            pointPadding: 0.05,
+            pointPadding: 0.1,
             groupPadding: 0,
             events: {
                 hide: updatePointStart,
@@ -208,24 +117,27 @@ var chart = Highcharts.chart('container', {
             },
             tooltip: {
                 headerFormat: '<span style="font-size: 10px"><span style="color:{point.color}">\u25CF</span> {series.name}</span><br/>',
-                pointFormat: '{point.name}: <b>${point.y}</b><br/>'
+                pointFormatter: function () {
+                    return this.name + ': <b>' + dollarFormat(this.y) + '</b><br/>';
+                }
             },
-            pointDescriptionFormatter: function (point) {
-                return (point.index + 1) + '. ' + point.name + ' ' +
-                    dollarFormat(point.y) + '.' +
-                    (point.description ? ' ' + point.description : '');
+            accessibility: {
+                pointDescriptionFormatter: function (point) {
+                    return (point.index + 1) + '. ' + point.name + ' ' +
+                        dollarFormat(point.y) + '.';
+                }
             }
         },
         line: {
             yAxis: 1,
             lineWidth: 5,
+            accessibility: {
+                exposeAsGroupOnly: true
+            },
             marker: {
                 enabled: false
             },
             enableMouseTracking: false,
-            skipKeyboardNavigation: true,
-            includeInCSVExport: false,
-            exposeElementToA11y: true,
             linkedTo: ':previous',
             dataLabels: {
                 enabled: true,
@@ -236,11 +148,10 @@ var chart = Highcharts.chart('container', {
                 },
                 formatter: function () {
                     if (this.point === this.series.points[Math.floor(
-                            this.series.points.length / 2
+                        this.series.points.length / 2
                     )]) {
                         return 'Total: $' + Highcharts.numberFormat(this.y, 0);
                     }
-                    return;
                 }
             }
         }
@@ -249,6 +160,8 @@ var chart = Highcharts.chart('container', {
     series: [{
         name: 'Creative Space (CRSP)',
         color: colors[0],
+        borderColor: '#A59273',
+        borderWidth: 1,
         data: [
             ['509 Cultural Center / the luggage store', 50000],
             ['826 Valencia', 50000],
@@ -262,31 +175,31 @@ var chart = Highcharts.chart('container', {
         ]
     }, {
         type: 'line',
-        name: 'Creative Space (CRSP) totals',
+        name: 'Creative Space (CRSP) grant totals',
         data: [
             550000, 550000, 550000, 550000, 550000, 550000, 550000, 550000, 550000
         ],
         color: colors[0]
     }, {
         name: 'Cultural Center',
-        color: colors[1],
+        color: '#EC6E65',
         data: [
             ['Asian Pacific Islander Cultural Center', 104252.36],
             ['Queer Cultural Center', 104252.36],
             ['Bayview Opera House Ruth Williams Memorial Theater', 336103.08],
-            ['African American Art & Culture Complex', 534628.08],
+            ['African American Art and Culture Complex', 534628.08],
             ['Mission Cultural Center for Latino American Arts', 563938.76],
             ['SOMArts Cultural Centers', 630191.36]
         ],
         pointStart: 10
     }, {
         type: 'line',
-        name: 'Cultural Center totals',
+        name: 'Cultural Center grant totals',
         data: [
             2273366, 2273366, 2273366, 2273366, 2273366, 2273366
         ],
         pointStart: 10,
-        color: colors[1]
+        color: '#EC6E65'
     }, {
         name: 'Cultural Equity Initiative',
         color: colors[2],
@@ -311,7 +224,7 @@ var chart = Highcharts.chart('container', {
         pointStart: 17
     }, {
         type: 'line',
-        name: 'Cultural Equity Initiative totals',
+        name: 'Cultural Equity Initiative grant totals',
         data: [
             1050000, 1050000, 1050000, 1050000, 1050000, 1050000, 1050000,
             1050000, 1050000, 1050000, 1050000, 1050000, 1050000, 1050000,

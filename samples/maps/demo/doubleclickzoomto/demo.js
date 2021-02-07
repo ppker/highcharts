@@ -1,9 +1,15 @@
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population-density.json', function (data) {
 
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-population-density.json&callback=?', function (data) {
+    // Prevent logarithmic errors in color calulcation
+    data.forEach(function (p) {
+        p.value = (p.value < 1 ? 1 : p.value);
+    });
 
     // Initiate the chart
     Highcharts.mapChart('container', {
+        chart: {
+            map: 'custom/world'
+        },
 
         title: {
             text: 'Zoom in on country by double click'
@@ -22,8 +28,7 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=world-popu
 
         series: [{
             data: data,
-            mapData: Highcharts.maps['custom/world'],
-            joinBy: ['iso-a2', 'code'],
+            joinBy: ['iso-a3', 'code3'],
             name: 'Population density',
             states: {
                 hover: {

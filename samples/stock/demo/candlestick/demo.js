@@ -1,5 +1,4 @@
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?a=e&filename=aapl-ohlc.json&callback=?', function (data) {
+Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-ohlc.json', function (data) {
 
     // create the chart
     Highcharts.stockChart('container', {

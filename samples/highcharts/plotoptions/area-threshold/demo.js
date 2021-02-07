@@ -1,8 +1,12 @@
-
 Highcharts.chart('container', {
     chart: {
         type: 'area'
     },
+
+    title: {
+        text: 'Threshold is set to 100'
+    },
+
     xAxis: {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     },

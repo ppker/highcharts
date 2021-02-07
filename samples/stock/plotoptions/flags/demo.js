@@ -1,4 +1,3 @@
-
 Highcharts.stockChart('container', {
 
     rangeSelector: {
@@ -12,11 +11,11 @@ Highcharts.stockChart('container', {
     }, {
         type: 'flags',
         data: [{
-            x: Date.UTC(2011, 1, 14),
+            x: Date.UTC(2015, 5, 14),
             title: 'A',
             text: 'Shape: "squarepin"'
         }, {
-            x: Date.UTC(2011, 3, 28),
+            x: Date.UTC(2015, 7, 28),
             title: 'A',
             text: 'Shape: "squarepin"'
         }],
@@ -26,10 +25,10 @@ Highcharts.stockChart('container', {
     }, {
         type: 'flags',
         data: [{
-            x: Date.UTC(2011, 2, 1),
+            x: Date.UTC(2015, 6, 1),
             text: 'Shape: "circlepin"'
         }, {
-            x: Date.UTC(2011, 3, 1),
+            x: Date.UTC(2015, 7, 1),
             text: 'Shape: "circlepin"'
         }],
         shape: 'circlepin',
@@ -38,11 +37,11 @@ Highcharts.stockChart('container', {
     }, {
         type: 'flags',
         data: [{
-            x: Date.UTC(2011, 2, 10),
+            x: Date.UTC(2015, 6, 10),
             title: 'C',
             text: 'Shape: "flag"'
         }, {
-            x: Date.UTC(2011, 3, 11),
+            x: Date.UTC(2015, 7, 11),
             title: 'C',
             text: 'Shape: "flag"'
         }],

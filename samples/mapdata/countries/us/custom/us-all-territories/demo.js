@@ -62,8 +62,7 @@ var data = [
     ['pr-3614', 57],
     ['vi-3617', 58],
     ['vi-6398', 59],
-    ['vi-6399', 60],
-    ['undefined', 61]
+    ['vi-6399', 60]
 ];
 
 // Create the chart
@@ -104,11 +103,12 @@ Highcharts.mapChart('container', {
             format: '{point.name}'
         }
     }, {
-            name: 'Separators',
-            type: 'mapline',
-            data: Highcharts.geojson(Highcharts.maps['countries/us/custom/us-all-territories'], 'mapline'),
-            color: 'silver',
-            showInLegend: false,
-            enableMouseTracking: false
-        }]
+        name: 'Separators',
+        type: 'mapline',
+        data: Highcharts.geojson(Highcharts.maps['countries/us/custom/us-all-territories'], 'mapline'),
+        color: 'silver',
+        nullColor: 'silver',
+        showInLegend: false,
+        enableMouseTracking: false
+    }]
 });

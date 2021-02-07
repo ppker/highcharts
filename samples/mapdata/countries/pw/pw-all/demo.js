@@ -17,8 +17,7 @@ var data = [
     ['pw-6745', 12],
     ['pw-6750', 13],
     ['pw-6739', 14],
-    ['pw-3596', 15],
-    ['undefined', 16]
+    ['pw-3596', 15]
 ];
 
 // Create the chart
@@ -59,11 +58,12 @@ Highcharts.mapChart('container', {
             format: '{point.name}'
         }
     }, {
-            name: 'Separators',
-            type: 'mapline',
-            data: Highcharts.geojson(Highcharts.maps['countries/pw/pw-all'], 'mapline'),
-            color: 'silver',
-            showInLegend: false,
-            enableMouseTracking: false
-        }]
+        name: 'Separators',
+        type: 'mapline',
+        data: Highcharts.geojson(Highcharts.maps['countries/pw/pw-all'], 'mapline'),
+        color: 'silver',
+        nullColor: 'silver',
+        showInLegend: false,
+        enableMouseTracking: false
+    }]
 });

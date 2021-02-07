@@ -1,5 +1,3 @@
-
-
 // Prepare the data
 var data = [],
     n = 50000,
@@ -12,7 +10,7 @@ for (i = 0; i < n; i += 1) {
     ]);
 }
 
-if (!Highcharts.Series.prototype.renderCanvas) {    
+if (!Highcharts.Series.prototype.renderCanvas) {
     throw 'Module not loaded';
 }
 
@@ -54,7 +52,8 @@ Highcharts.chart('container', {
     series: [{
         type: 'bubble',
         boostBlending: 'alpha',
-        color: 'rgba(152,0,67,0.1)',
+        color: 'rgb(152, 0, 67)',
+        fillOpacity: 0.1,
         data: data,
         minSize: 1,
         maxSize: 10,

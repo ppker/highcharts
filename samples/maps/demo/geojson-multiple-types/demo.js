@@ -1,62 +1,57 @@
-
-
-$.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=australia.geo.json&callback=?', function (geojson) {
+Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/australia.geo.json', function (geojson) {
 
     // Prepare the geojson
     var states = Highcharts.geojson(geojson, 'map'),
         rivers = Highcharts.geojson(geojson, 'mapline'),
         cities = Highcharts.geojson(geojson, 'mappoint'),
         specialCityLabels = {
-            'Melbourne': {
+            Melbourne: {
                 align: 'right'
             },
-            'Canberra': {
+            Canberra: {
                 align: 'right',
                 y: -5
             },
-            'Wollongong': {
+            Wollongong: {
                 y: 5
             },
-            'Brisbane': {
+            Brisbane: {
                 y: -5
             }
         };
 
     // Skip or move some labels to avoid collision
-    $.each(states, function () {
+    states.forEach(function (state) {
         // Disable data labels
-        if (this.properties.code_hasc === 'AU.CT' || this.properties.code_hasc === 'AU.JB') {
-            this.dataLabels = {
+        if (state.properties.code_hasc === 'AU.CT' || state.properties.code_hasc === 'AU.JB') {
+            state.dataLabels = {
                 enabled: false
             };
         }
-        if (this.properties.code_hasc === 'AU.TS') {
-            this.dataLabels = {
+        if (state.properties.code_hasc === 'AU.TS') {
+            state.dataLabels = {
                 style: {
                     color: '#333333'
                 }
             };
         }
         // Move center for data label
-        if (this.properties.code_hasc === 'AU.SA') {
-            this.middleY = 0.3;
+        if (state.properties.code_hasc === 'AU.SA') {
+            state.middleY = 0.3;
         }
-        if (this.properties.code_hasc === 'AU.QL') {
-            this.middleY = 0.7;
-        }
-
-    });
-
-    $.each(cities, function () {
-        if (specialCityLabels[this.name]) {
-            this.dataLabels = specialCityLabels[this.name];
+        if (state.properties.code_hasc === 'AU.QL') {
+            state.middleY = 0.7;
         }
     });
 
+    cities.forEach(function (city) {
+        if (specialCityLabels[city.name]) {
+            city.dataLabels = specialCityLabels[city.name];
+        }
+    });
 
     // Initiate the chart
     Highcharts.mapChart('container', {
-
         title: {
             text: 'Highmaps from geojson with multiple geometry types'
         },
@@ -67,7 +62,6 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=australia.
                 verticalAlign: 'bottom'
             }
         },
-
 
         series: [{
             name: 'States and territories',
@@ -92,6 +86,11 @@ $.getJSON('https://www.highcharts.com/samples/data/jsonp.php?filename=australia.
             name: 'Rivers',
             type: 'mapline',
             data: rivers,
+            states: {
+                hover: {
+                    lineWidth: 3
+                }
+            },
             color: Highcharts.getOptions().colors[0],
             tooltip: {
                 pointFormat: '{point.properties.NAME}'

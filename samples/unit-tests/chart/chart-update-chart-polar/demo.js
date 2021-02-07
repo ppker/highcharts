@@ -1,46 +1,39 @@
 /* eslint func-style:0 */
 
-
-var config = {
-    chart: {
-        type: 'column',
-        animation: false,
-        height: 300
-    },
-
-    plotOptions: {
-        series: {
-            animation: false
-        }
-    },
-
-    series: [{
-        data: [1, 3, 2, 4],
-        name: 'First'
-    }, {
-        data: [5, 3, 4, 1],
-        name: 'Last'
-    }]
-};
-
 QUnit.test('Option chart.polar update', function (assert) {
-    var chart = Highcharts.chart($('<div>').appendTo('#container')[0], Highcharts.merge(config));
+    var chart = Highcharts.chart('container', {
+        chart: {
+            type: 'column',
+            animation: false,
+            height: 300
+        },
 
-    assert.ok(
-        !chart.polar,
-        'Initially not polar'
-    );
+        plotOptions: {
+            series: {
+                animation: false
+            }
+        },
 
-    assert.ok(
-        !chart.xAxis[0].isRadial,
-        'Axis not radial'
-    );
+        series: [
+            {
+                data: [1, 3, 2, 4],
+                name: 'First'
+            },
+            {
+                data: [5, 3, 4, 1],
+                name: 'Last'
+            }
+        ]
+    });
+
+    assert.ok(!chart.polar, 'Initially not polar');
+
+    assert.ok(!chart.xAxis[0].isRadial, 'Axis not radial');
 
     assert.ok(
         chart.series[0].points[0].graphic.element.getAttribute('d') === null,
         'Columns not arced'
     );
-
 
     // Make polar
     chart.update({
@@ -49,23 +42,28 @@ QUnit.test('Option chart.polar update', function (assert) {
         }
     });
 
-    assert.ok(
-        chart.polar,
-        'Now polar'
-    );
+    assert.ok(chart.polar, 'Now polar');
+
+    assert.ok(chart.xAxis[0].isRadial, 'Axis is radial');
 
     assert.ok(
-        chart.xAxis[0].isRadial,
-        'Axis is radial'
-    );
-
-    assert.ok(
-        chart.series[0].points[0].graphic.element.getAttribute('d').indexOf('A') > -1,
+        chart.series[0].points[0].graphic.element
+            .getAttribute('d')
+            .indexOf('A') > -1,
         'Columns are arced'
     );
     assert.ok(
-        chart.yAxis[0].ticks[chart.yAxis[0].tickPositions[1]].gridLine.element.getAttribute('d').indexOf('A') > -1,
+        chart.yAxis[0].ticks[chart.yAxis[0].tickPositions[1]].gridLine.element
+            .getAttribute('d')
+            .indexOf('A') > -1,
         'Grid lines are arced'
+    );
+
+    assert.ok(
+        chart.yAxis[0].ticks[chart.yAxis[0].tickPositions[0]].gridLine.element
+            .getAttribute('d')
+            .indexOf('A') > -1,
+        'Grid line for threshold value exists (#2366)'
     );
 
     // Unmake polar
@@ -75,23 +73,18 @@ QUnit.test('Option chart.polar update', function (assert) {
         }
     });
 
-    assert.ok(
-        !chart.polar,
-        'Not polar'
-    );
+    assert.ok(!chart.polar, 'Not polar');
 
-    assert.ok(
-        !chart.xAxis[0].isRadial,
-        'Axis not radial'
-    );
+    assert.ok(!chart.xAxis[0].isRadial, 'Axis not radial');
 
     assert.ok(
         chart.series[0].points[0].graphic.element.getAttribute('d') === null,
         'Columns not arced'
     );
     assert.ok(
-        chart.yAxis[0].ticks[chart.yAxis[0].tickPositions[1]].gridLine.element.getAttribute('d').indexOf('A') === -1,
+        chart.yAxis[0].ticks[chart.yAxis[0].tickPositions[1]].gridLine.element
+            .getAttribute('d')
+            .indexOf('A') === -1,
         'Grid lines not arced'
     );
-
 });

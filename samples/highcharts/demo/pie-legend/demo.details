@@ -1,6 +1,10 @@
 ---
- name: Highcharts Demo
- authors:
-   - Torstein Hønsi
- js_wrap: b
+name: Pie with legend
+authors:
+  - Torstein Hønsi
+js_wrap: b
+tags:
+  - Highcharts demo
+categories:
+  - Pie charts
 ...

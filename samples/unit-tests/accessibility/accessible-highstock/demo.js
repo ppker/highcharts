@@ -1,9 +1,15 @@
-
 QUnit.test('Basic stock chart', function (assert) {
     var chart = Highcharts.stockChart('container', {
-        series: [{
-            data: [1, 2, 3, 4, 5, 6]
-        }]
+        accessibility: {
+            series: {
+                pointDescriptionEnabledThreshold: 1
+            }
+        },
+        series: [
+            {
+                data: [1, 2, 3, 4, 5, 6]
+            }
+        ]
     });
 
     assert.ok(
@@ -11,17 +17,22 @@ QUnit.test('Basic stock chart', function (assert) {
         'There be ARIA on series'
     );
 
-    assert.ok(chart.screenReaderRegion && chart.screenReaderRegion.getAttribute('aria-label'), 'There be screen reader region');
+    assert.ok(
+        chart.accessibility.components.infoRegions.screenReaderSections.before
+            .element.getAttribute(
+                'aria-label'
+            ),
+        'There be screen reader region'
+    );
 });
 
-QUnit.test('Stock chart with markers', function (assert) {
+QUnit.test('Stock chart with forced markers', function (assert) {
     var chart = Highcharts.stockChart('container', {
-            series: [{
-                data: [1, 2, 3, 4, 5, 6],
-                marker: {
-                    enabled: true
+            series: [
+                {
+                    data: [1, 2, 3, 4, 5, 6]
                 }
-            }]
+            ]
         }),
         point = chart.series[0].points[0];
 
